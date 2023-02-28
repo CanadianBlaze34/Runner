@@ -1,4 +1,6 @@
 # Source: https://www.youtube.com/watch?v=AY9MnQ4x3zk&ab_channel=ClearCode
+from re import T
+from typing import List
 import pygame
 from sys import exit
 from random import randint, choice
@@ -20,7 +22,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         player_walk_1 = pygame.image.load('graphics/player/player_walk_1.png').convert_alpha()
         player_walk_2 = pygame.image.load('graphics/player/player_walk_2.png').convert_alpha()
-        self.walk_animations: [] = [player_walk_1, player_walk_2]
+        self.walk_animations: List[T] = [player_walk_1, player_walk_2]
         self.jump_sprite = pygame.image.load('graphics/player/jump.png').convert_alpha()
         self.animation_index: float = 0
 
@@ -85,14 +87,14 @@ class Obstacle(pygame.sprite.Sprite):
         if type == 'fly':
             fly_frame_1: Surface = pygame.image.load('graphics/fly/fly1.png').convert_alpha()
             fly_frame_2: Surface = pygame.image.load('graphics/fly/fly2.png').convert_alpha()
-            self.animation_frames: [] = [fly_frame_1, fly_frame_2]
+            self.animation_frames: List[T] = [fly_frame_1, fly_frame_2]
             self.animation_speed = 0.3
             y_position = FLOOR - 90
 
         elif type == 'snail':
             snail_frame_1: Surface = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
             snail_frame_2: Surface = pygame.image.load('graphics/snail/snail2.png').convert_alpha()
-            self.animation_frames: [] = [snail_frame_1, snail_frame_2]
+            self.animation_frames: List[T] = [snail_frame_1, snail_frame_2]
             self.animation_speed = 0.1
             y_position = FLOOR
 
