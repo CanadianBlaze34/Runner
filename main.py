@@ -46,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         left_mouse : bool = pygame.mouse.get_pressed()[0]
         # if the player is on the floor and, the mouse is clicked on the player or
         # the space bar is pressed, the player will jump
-        if self.rect.bottom == FLOOR and (space_key or left_mouse):
+        if self.rect.bottom == FLOOR and (space_key or left_mouse and self.rect.collidepoint(pygame.mouse.get_pos())):
             self.gravity = -20
             # play jump sound
             self.jump_sound.play()
@@ -152,7 +152,6 @@ def display_title_screen():
 
 
 pygame.init()
-pygame.mixer.init()
 # GLOBAL/STATIC SETTINGS
 WIDTH = 800
 HEIGHT = 468
@@ -167,8 +166,9 @@ BG_MUSIC = pygame.mixer.Sound('audio/music.wav') # background music
 BG_MUSIC.set_volume(0.07)
 BG_MUSIC.play(loops = -1) # loop forever
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT), flags=pygame.RESIZABLE)
 pygame.display.set_caption(TITLE)
+
 clock = pygame.time.Clock()
 game_font = pygame.font.Font('font/Pixeltype.ttf', 50)
 
@@ -216,6 +216,8 @@ while True:
                 start_time = int(pygame.time.get_ticks() / 1000)
 
     if game_active:
+        # display background color
+        screen.fill(pygame.Color('black'))
         # BLIT => BLock Image Transfer
         screen.blit(sky_surface,  (0, 0))
         screen.blit(ground_surface, (0, FLOOR))
